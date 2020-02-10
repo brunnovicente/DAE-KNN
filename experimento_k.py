@@ -15,7 +15,7 @@ dados['classe'] = Y
 
 p = 0
 for i in np.arange(100)+1:
-    sys.stdout.write('Porcentagem %.2f %%' %p)
+    sys.stdout.write('\nPorcentagem %.2f %%' %((p/1000)*100))
     resultado = pd.DataFrame()
     for j in np.arange(10):
         L, U, y, yu = train_test_split(X,Y, train_size=0.1, test_size=0.9, stratify=Y)

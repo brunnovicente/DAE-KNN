@@ -46,4 +46,7 @@ class DAEKNN:
         self.knn = Semi_Supervised_KNN()
         self.rotulos = self.knn.classificar(PL, PU, y, k=self.k)
         return self.rotulos
+    
+    def predizer(self, x):
+        self.knn.classificar()
         

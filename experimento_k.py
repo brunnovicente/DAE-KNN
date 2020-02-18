@@ -19,8 +19,8 @@ for i in np.arange(100)+1:
     resultado = pd.DataFrame()
     
     for j in np.arange(10):
-        L, U, y, yu = train_test_split(X,Y, train_size=0.1, test_size=0.9, stratify=Y)
-        DaeKnn = DAEKNN(np.size(np.unique(Y)), np.size(L, axis=1), i)
+        L, U, y, yu = train_test_split(X,Y, train_size=0.0042, test_size=1-0.0042, stratify=Y)
+        DaeKnn = DAEKNN(np.size(np.unique(Y)), np.size(L, axis=1), 5)
         preditas = DaeKnn.fit(L, U, y)
         resultado['exe'+str(j+1)] = preditas
         resultado['y'+str(j+1)] = yu
@@ -28,3 +28,4 @@ for i in np.arange(100)+1:
         por = (p / 1000)*100
         sys.stdout.write('\nPorcentagem %.2f %%' %por)
     resultado.to_csv('resultados/resultado_k'+str(i)+'.csv', index=False)
+    break

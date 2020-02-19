@@ -10,6 +10,7 @@ from sklearn.svm import SVC
 from sklearn.naive_bayes import GaussianNB
 from sklearn.neural_network import MLPClassifier
 from sklearn.linear_model import LogisticRegression
+import time
 
 sca = MinMaxScaler()
 
@@ -47,6 +48,8 @@ for k in np.arange(10):
             print('Teste '+str(rotulados[r])+' - '+str(j))
             L, U, y, yu = train_test_split(X_train, y_train, train_size = p, test_size= 1.0 - p, stratify=y_train)
             DaeKnn = DAEKNN(np.size(np.unique(y_train)), np.size(L, axis=1), 5)
+            
+            inicio = time()
             preditas = DaeKnn.fit(L, U, y)
             resultadoT['exe'+str(j+1)] = preditas
             resultadoT['y'+str(j+1)] = yu
@@ -86,6 +89,9 @@ for k in np.arange(10):
             resultadoNB['y'+str(j+1)] = y_test
             resultadoLR['exe'+str(j+1)] = lr.predict(X_test)
             resultadoLR['y'+str(j+1)] = lr.predict(X_test)
+            fim = time()
+            tempo = np.round((fim - inicio)/60,2)
+            print('........ Tempo: '+tempo+' minutos.')
                         
         resultadoT.to_csv('resultados/resultado_MODELO_T'+str(rotulados[r])+''+str(r)+'.csv', index=False) 
         
@@ -96,4 +102,4 @@ for k in np.arange(10):
         resultadoRF.to_csv('resultados/resultado_MLP_I'+str(rotulados[r])+''+str(r)+'.csv', index=False)
         resultadoNB.to_csv('resultados/resultado_MLP_I'+str(rotulados[r])+''+str(r)+'.csv', index=False)
         resultadoLR.to_csv('resultados/resultado_MLP_I'+str(rotulados[r])+''+str(r)+'.csv', index=False)
-        break
+        

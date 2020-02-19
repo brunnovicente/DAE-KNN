@@ -7,25 +7,23 @@ from sklearn.preprocessing import MinMaxScaler
 
 sca = MinMaxScaler()
 
-dados = pd.read_csv('c:/basedados/agricultura.csv')
+dados = pd.read_csv('d:/basedados/agricultura.csv')
 X = sca.fit_transform(dados.drop(['classe'], axis=1).values)
 Y = dados['classe'].values
 dados = pd.DataFrame(X)
 dados['classe'] = Y
+tamanho = [50, 100, 150, 200, 250, 300]
+porcentagem = [0.0042, 0.0084, 0.0126, 0.01675, 0.0209, 0.0251]
 
-p = 0
-for i in np.arange(100)+1:
-    sys.stdout.write('\nPorcentagem %.2f %%' %((p/1000)*100))
-    resultado = pd.DataFrame()
-    
-    for j in np.arange(10):
-        L, U, y, yu = train_test_split(X,Y, train_size=0.0042, test_size=1-0.0042, stratify=Y)
-        DaeKnn = DAEKNN(np.size(np.unique(Y)), np.size(L, axis=1), 5)
-        preditas = DaeKnn.fit(L, U, y)
-        resultado['exe'+str(j+1)] = preditas
-        resultado['y'+str(j+1)] = yu
-        p += 1
-        por = (p / 1000)*100
-        sys.stdout.write('\nPorcentagem %.2f %%' %por)
-    resultado.to_csv('resultados/resultado_k'+str(i)+'.csv', index=False)
-    break
+for i, p in enumerate(porcentagem):
+    for k in np.arange(100)+1:
+        resultado = pd.DataFrame()
+        print('Execução '+str(tamanho[i])+' - '+str(k))
+        for j in np.arange(10):
+            L, U, y, yu = train_test_split(X,Y, train_size = p, test_size = 1.0 - p, stratify = Y)
+            DaeKnn = DAEKNN(np.size(np.unique(Y)), np.size(L, axis=1), k)
+            preditas = DaeKnn.fit(L, U, y)
+            resultado['exe'+str(j+1)] = preditas
+            resultado['y'+str(j+1)] = yu
+
+        resultado.to_csv('resultados/resultado_'+str(p)+'k'+str(i)+'.csv', index=False)

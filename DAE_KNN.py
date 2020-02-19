@@ -4,6 +4,7 @@ from keras.models import Model, Sequential
 from keras.layers import Dense, Dropout, Input
 from keras.optimizers import SGD
 from SKNN import Semi_Supervised_KNN
+import numpy as np
 
 class DAEKNN:
     
@@ -44,6 +45,7 @@ class DAEKNN:
     
     def rotulacao(self, PL, PU, y):
         self.knn = Semi_Supervised_KNN()
+        #print('........... Tamanho Rotulados: ', str(np.size(PL, axis=1)))
         self.rotulos = self.knn.classificar(PL, PU, y, k=self.k)
         return self.rotulos
     

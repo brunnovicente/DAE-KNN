@@ -22,10 +22,10 @@ class Semi_Supervised_KNN:
         indices = nrot.index.values
         
         #Caso alguém não tenho rótulo
-        if np.size(indices) != 0:
+        if np.size(np.size(nrot, axis=0)) != 0:
             knn = KNeighborsClassifier(n_neighbors=k)
             #print(' - ROTULADOS: '+str(np.size(rotulados.drop(['y'], axis=1).values, axis=0)))
-            knn.fit(rotulados.drop(['y'], axis=1).values, rotulados['y'].values)
+            knn.fit(L, y)
             
             for i, x in enumerate(nrot.drop(['y'], axis=1).values):
                 c = knn.predict([x])

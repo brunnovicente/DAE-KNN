@@ -14,7 +14,7 @@ import time
 
 sca = MinMaxScaler()
 
-dados = pd.read_csv('c:/basedados/agricultura.csv')
+dados = pd.read_csv('d:/basedados/agricultura.csv')
 X = sca.fit_transform(dados.drop(['classe'], axis=1).values)
 Y = dados['classe'].values
 
@@ -49,7 +49,7 @@ for k in np.arange(10):
             L, U, y, yu = train_test_split(X_train, y_train, train_size = p, test_size= 1.0 - p, stratify=y_train)
             DaeKnn = DAEKNN(np.size(np.unique(y_train)), np.size(L, axis=1), 5)
             
-            inicio = time()
+            inicio = time.time()
             preditas = DaeKnn.fit(L, U, y)
             resultadoT['exe'+str(j+1)] = preditas
             resultadoT['y'+str(j+1)] = yu
@@ -89,7 +89,7 @@ for k in np.arange(10):
             resultadoNB['y'+str(j+1)] = y_test
             resultadoLR['exe'+str(j+1)] = lr.predict(X_test)
             resultadoLR['y'+str(j+1)] = lr.predict(X_test)
-            fim = time()
+            fim = time.time()
             tempo = np.round((fim - inicio)/60,2)
             print('........ Tempo: '+tempo+' minutos.')
                         

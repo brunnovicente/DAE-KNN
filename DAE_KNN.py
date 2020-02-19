@@ -40,7 +40,7 @@ class DAEKNN:
         return self.rotulacao(PL, PU, y)
         
     def reducaoZ(self, X):
-        self.autoencoder.fit(X, X, batch_size=30, epochs=5, verbose=False)
+        self.autoencoder.fit(X, X, batch_size=30, epochs=50, verbose=False)
         return self.encoder.predict(X)
     
     def rotulacao(self, PL, PU, y):

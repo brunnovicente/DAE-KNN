@@ -1,3 +1,6 @@
+import warnings
+warnings.filterwarnings("ignore")
+
 import sys
 import pandas as pd
 import numpy as np

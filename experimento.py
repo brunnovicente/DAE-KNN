@@ -11,14 +11,15 @@ dados = pd.read_csv('d:/basedados/agricultura.csv')
 X = sca.fit_transform(dados.drop(['classe'], axis=1).values)
 Y = dados['classe'].values
 
-#valor = 0.0279
+
 X_train, X_test, y_train, y_test = train_test_split(X,Y, train_size=0.9, test_size=0.1, stratify=Y)
-#A, B, ya, yb = train_test_split(X_train, y_train, train_size=valor, test_size=1 - valor, stratify=y_train)
+
 
 dados = pd.DataFrame(X)
 dados['classe'] = Y
 rotulados = [50 , 100, 150, 200, 250, 300]
 porcentagem = [0.0047, 0.0093, 0.0140, 0.0186, 0.0233, 0.0279]
+
 
 for k in np.arange(10):
     sys.stdout.write('Execução '+str(k+1))

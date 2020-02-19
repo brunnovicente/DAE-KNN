@@ -4,6 +4,7 @@ import numpy as np
 from DAE_KNN import DAEKNN
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
+import time
 
 sca = MinMaxScaler()
 
@@ -19,11 +20,15 @@ for i, p in enumerate(porcentagem):
     for k in np.arange(100)+1:
         resultado = pd.DataFrame()
         print('Execução '+str(tamanho[i])+' - '+str(k))
-        for j in np.arange(10):
+        inicio = time.time()
+        for j in np.arange(1):
             L, U, y, yu = train_test_split(X,Y, train_size = p, test_size = 1.0 - p, stratify = Y)
             DaeKnn = DAEKNN(np.size(np.unique(Y)), np.size(L, axis=1), k)
             preditas = DaeKnn.fit(L, U, y)
             resultado['exe'+str(j+1)] = preditas
             resultado['y'+str(j+1)] = yu
-
+        fim = time.time()
+        tempo = np.round((fim - inicio)/60, 2)
+        print('................ Tempo '+str(tempo)+' minutos.')
         resultado.to_csv('resultados/resultado_'+str(p)+'k'+str(i)+'.csv', index=False)
+    break

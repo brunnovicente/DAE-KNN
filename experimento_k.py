@@ -31,4 +31,3 @@ for i, p in enumerate(porcentagem):
         tempo = np.round((fim - inicio)/60, 2)
         print('................ Tempo '+str(tempo)+' minutos.')
         resultado.to_csv('resultados/resultado_'+str(p)+'k'+str(i)+'.csv', index=False)
-    break

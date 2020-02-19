@@ -21,7 +21,7 @@ for i, p in enumerate(porcentagem):
         resultado = pd.DataFrame()
         print('Execução '+str(tamanho[i])+' - '+str(k))
         inicio = time.time()
-        for j in np.arange(1):
+        for j in np.arange(10):
             L, U, y, yu = train_test_split(X,Y, train_size = p, test_size = 1.0 - p, stratify = Y)
             DaeKnn = DAEKNN(np.size(np.unique(Y)), np.size(L, axis=1), k)
             preditas = DaeKnn.fit(L, U, y)

@@ -35,22 +35,22 @@ porcentagem = [0.0047, 0.0093, 0.0140, 0.0186, 0.0233, 0.0279]
 
 for r, p in enumerate(porcentagem):
     
+    resultadoT = pd.DataFrame()
+    resultadoI = pd.DataFrame()
+    resultadoMLP = pd.DataFrame()
+    resultadoKNN = pd.DataFrame()
+    resultadoSVM = pd.DataFrame()
+    resultadoRF = pd.DataFrame()
+    resultadoNB = pd.DataFrame()
+    resultadoLR = pd.DataFrame()
+    
     for k in np.arange(10):
         print('Teste: '+str(rotulados[r])+' - '+str(k+1))
         
         X_train, X_test, y_train, y_test = train_test_split(X,Y, train_size=0.9, test_size=0.1, stratify=Y)
         
-        resultadoT = pd.DataFrame()
-        resultadoI = pd.DataFrame()
-        resultadoMLP = pd.DataFrame()
-        resultadoKNN = pd.DataFrame()
-        resultadoSVM = pd.DataFrame()
-        resultadoRF = pd.DataFrame()
-        resultadoNB = pd.DataFrame()
-        resultadoLR = pd.DataFrame()
-        
+                
         """ PROCESSO TRANSDUTIVO """
-
         L, U, y, yu = train_test_split(X_train, y_train, train_size = p, test_size= 1.0 - p, stratify=y_train)
         DaeKnn = DAEKNN(np.size(np.unique(y_train)), np.size(L, axis=1), 5)
         

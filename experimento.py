@@ -42,6 +42,7 @@ for r, p in enumerate(porcentagem):
     resultadoSVM = pd.DataFrame()
     resultadoRF = pd.DataFrame()
     resultadoNB = pd.DataFrame()
+        
     resultadoLR = pd.DataFrame()
     
     for k in np.arange(10):

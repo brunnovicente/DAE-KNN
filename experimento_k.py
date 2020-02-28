@@ -7,7 +7,7 @@ import time
 
 sca = MinMaxScaler()
 
-dados = pd.read_csv('C:/Users/Servidor-LSI/Documents/Bruno Vicente/GitHub/basedados/agricultura.csv')
+dados = pd.read_csv('C:/Users/brunn/OneDrive/Documents/GitHub/basedados/agricultura.csv')
 X = sca.fit_transform(dados.drop(['classe'], axis=1).values)
 Y = dados['classe'].values
 dados = pd.DataFrame(X)
@@ -16,7 +16,7 @@ tamanho = [50, 100, 150, 200, 250, 300]
 porcentagem = [0.0042, 0.0084, 0.0126, 0.01675, 0.0209, 0.0251]
 
 for i, p in enumerate(porcentagem):
-    for k in np.arange(25)+1:
+    for k in np.arange(25,26):
         resultado = pd.DataFrame()
         print('Execução '+str(tamanho[i])+' - '+str(k))
         inicio = time.time()

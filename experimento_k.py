@@ -41,4 +41,4 @@ for base in bases:
     resultadoK.to_csv('resultados/resultado_k_kappa_'+base+'.csv', index=False)
     fim = time.time()
     tempo = np.round((fim - inicio)/60, 2)
-    print('................ Tempo '+str(tempo)+' minutos.')
+    print('................ Tempo '+str(tempo)+' minutos.') 

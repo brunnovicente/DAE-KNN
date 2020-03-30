@@ -10,8 +10,8 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import accuracy_score, cohen_kappa_score
 
 sca = MinMaxScaler()
-caminho = ['D:/Drive UFRN/bases/']
-bases = ['mnist', 'fashion', 'usps', 'cifar10','stl10','covtype','epilepsia','reuters']
+caminho = 'D:/Drive UFRN/bases/'
+bases = ['covtype','epilepsia','reuters']
 
 for base in bases:
     print('BASE: '+base)

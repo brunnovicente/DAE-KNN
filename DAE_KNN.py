@@ -49,6 +49,8 @@ class DAEKNN:
         self.rotulos = self.knn.classificar(PL, PU, y, k=self.k)
         return self.rotulos
     
-    def predizer(self, x):
-        self.knn.classificar()
+    def predizer(self, L, U, y):
+        PL = self.encoder.predict(L)
+        PU = self.encoder.predict(U)
+        return self.knn.classificar(PL, PU, y, k = self.k)
         

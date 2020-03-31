@@ -17,32 +17,35 @@ from sklearn.metrics import accuracy_score, cohen_kappa_score
 import time
 
 sca = MinMaxScaler()
-base = 'mnist'
-caminho = 'D:/Drive UFRN/bases/'
-dados = pd.read_csv(caminho + base + '.csv')
+bases = ['stl10','reuters','covtype','epilepsia']
 
-X = sca.fit_transform(dados.drop(['classe'], axis=1).values)
-Y = dados['classe'].values
 
-dados = pd.DataFrame(X)
-dados['classe'] = Y
-#rotulados = [50 , 100, 150, 200, 250, 300]
-#porcentagem = [0.0047, 0.0093, 0.0140, 0.0186, 0.0233, 0.0279]
-
-rotulados = [50, 100, 150, 200, 250, 300]
-porcentagem = [0.0047, 0.0093, 0.0140, 0.0186, 0.0233, 0.0279]
-
-for r, p in enumerate(porcentagem):
+for base in bases:
+    print('===> BASE: '+base)
+    caminho = 'C:/Users/brunn/Google Drive/bases/'
+    dados = pd.read_csv(caminho + base + '.csv')
     
-    resultadoT = pd.DataFrame()
-    resultadoI = pd.DataFrame()
+    X = sca.fit_transform(dados.drop(['classe'], axis=1).values)
+    Y = dados['classe'].values
+    
+    dados = pd.DataFrame(X)
+    dados['classe'] = Y
+    
+    rotulados = [50, 100, 150, 200, 250, 300]
+    
+    
     acuraciai = []
     acuraciat = []
     kappai = []
     kappat = []
+    porcentagem = [0.0047, 0.0093, 0.0140, 0.0186, 0.0233, 0.0279]
+    
+    resultado = pd.DataFrame()
+    
+    
+    for r, p in enumerate(porcentagem):
         
-    for k in np.arange(10):
-        print('Teste: '+str(rotulados[r])+' - '+str(k+1))
+        print('Teste: '+base + ' - ' +str(rotulados[r]))
         inicio = time.time()
         
         X_train, X_test, y_train, y_test = train_test_split(X,Y, train_size=0.9, test_size=0.1, stratify=Y)
@@ -60,7 +63,7 @@ for r, p in enumerate(porcentagem):
         kappai.append(cohen_kappa_score(y_test, DaeKnn.predizer(L, X_test, y)))
         
         """ Teste de outros algoritmos """
-
+    
         fim = time.time()
         tempo = np.round((fim - inicio)/60,2)
         print('........ Tempo: '+str(tempo)+' minutos.')
@@ -71,3 +74,4 @@ for r, p in enumerate(porcentagem):
     resultado['KI'] = acuraciai
     resultado['KI'] = kappai
                       
+    resultado.to_csv('resultado_'+base+'.csv', index=False);

@@ -4,6 +4,7 @@ warnings.filterwarnings("ignore")
 import pandas as pd
 import numpy as np
 import time
+import sys
 from DAE_KNN import DAEKNN
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
@@ -11,10 +12,12 @@ from sklearn.metrics import accuracy_score, cohen_kappa_score
 
 sca = MinMaxScaler()
 caminho = 'D:/Drive UFRN/bases/'
-bases = ['covtype','epilepsia','reuters']
+bases = ['mnist','fashion','usps','cifar10','stl10','covtype','epilepsia','reuters']
 
 for base in bases:
-    print('BASE: '+base)
+    texto = 'BASE: '+base+'\n'
+    sys.stdout.write(texto)
+    
     dados = pd.read_csv(caminho + base + '.csv')
     X = sca.fit_transform(dados.drop(['classe'], axis=1).values)
     Y = dados['classe'].values
@@ -31,7 +34,8 @@ for base in bases:
         acuracia = []
         kappa = []
         for k in np.arange(25)+1:
-            print('Execução '+str(tamanho[i])+' - '+str(k))
+            texto = 'Execucao '+str(tamanho[i])+' - '+str(k)+'\n'
+            sys.stdout.write(texto)
             L, U, y, yu = train_test_split(X,Y, train_size = p, test_size = 1.0 - p, stratify = Y)
             DaeKnn = DAEKNN(np.size(np.unique(Y)), np.size(L, axis=1), k)
             preditas = DaeKnn.fit(L, U, y)
@@ -44,4 +48,5 @@ for base in bases:
     resultadoK.to_csv('resultados/resultado_k_kappa_'+base+'.csv', index=False)
     fim = time.time()
     tempo = np.round((fim - inicio)/60, 2)
-    print('................ Tempo '+str(tempo)+' minutos.') 
+    texto = '................ Tempo '+str(tempo)+' minutos. \n'
+    sys.stdout.write(texto)
